@@ -1,0 +1,113 @@
+multiple reducer and immer library(for Immutability)
+
+
+example for mutable and immutable
+
+ImMutable 
+var a=5 //a=5 
+b=a    //b=5  
+a=7   //b=5 a=7
+
+Mutable 
+const a={
+    xyz:1
+}
+const b=a
+b.xyz=2 // change in both a and b object
+
+
+
+1-Programme 
+1-require redux also require immer (require means we need to install these library by npm i redux immer)
+
+
+const redux=require('redux')
+const produce=require('immer).produce (we only need the immer produce function which is used for Immutability)
+
+
+2-Actions 
+
+const StreetAddress='StreetAddress'
+const IncOfCake='IncOfCake'
+const DecOfCake='DecOfCake'
+
+3-pureFunctions
+
+function incCake(){
+    return {
+        type:IncOfCake,
+        payload:1
+    }
+}
+
+
+function DecCake(){
+    return {
+        type:DecOfCake,
+        payload:1
+    }
+}
+
+function street(address){
+    return {
+        type : StreetAddress,
+        payload: address
+    }
+}
+
+4- reducers
+const initialState={
+    numOfCake:10,
+    address:{
+        street:'dha'
+
+    }
+}
+const cakeReducer =(state=initialState,actions)=>{
+    switch(action.type){
+        case 'IncOfCake':
+        return {
+            ...state,
+            state.numOfCake:state.numOfCake+action.payload
+            ...state.address // before immer we need to make it immutable
+        }
+        case 'DecOfCake':
+        return produce(state,(draft)=>{
+            draft.numOfCake-=action.payload
+        })
+        default:
+        return state
+    }
+}
+
+const addressReducer=(state=initialState,aciton)=>{
+    switch (action.type){
+        case 'StreetAddress':{
+            return produce(state,(draft)=>{
+                draft.address=action.payload
+            })
+        }
+        default:
+        return state
+    }
+}
+
+
+4-store  and combine all reducers
+
+const root =redux.combineReducers({
+    cakeReducer:cakeReducer,
+    StreetAddress:StreetAddress
+})
+
+const createStore=redux.createStore()
+
+const store=createStore(root)
+console.log('initialState',store,getState())
+const actions=redux.bindActionCreator({incCake,decCake,street},store.dispatch)
+
+const unsubscribe=store.subscribe(()=>console.log('updated',store,getState()))
+
+actions.street('Shah')
+
+unsubscribe()

@@ -1,0 +1,11 @@
+In this we reduce the line store.dispatch(funcname()) into action(funcname())
+simple just  call bindActionCreator from redux
+
+include below line after make a unsubscribe variable
+const actions = redux.bindActionCreator({restocked,decCake,incCake},store.dispatch)
+
+then call it like this:
+actions.restocked(3)
+
+and inlast call unsubscribe
+unsubscribe()

@@ -1,0 +1,81 @@
+1- Store is responsible to provide state to all components and manage state in a separte file
+
+2-Action action tells what to do 
+
+3-Reducer How  to do 
+
+1-Programme without react and immer (immer library perform immutable state)
+
+1-first require redux 
+const redux=require('redux')
+
+2- make actions
+
+const IncOfCake='IncOfCake'
+const DecOfCake='DecOfCake'
+const restocked='reStocked'
+
+3-pureFunctions
+
+function incCake(){
+    return {
+        type:IncOfCake,
+        payload:1
+    }
+}
+
+function decCake(){
+    return {
+        type:DecOfCake,
+        payload:1
+    }
+}
+
+function restockCake(qty){
+    return {
+        type:reStocked,
+        payload:qty
+    }
+}
+
+4-reducer 
+const initialState={
+    numOfCake:10
+}
+
+const reducer=(state=initialState,action)=>{
+     switch (action.type){
+        case 'IncOfCake':{
+            return {
+                ...state, (performing immer by our self)
+                state.numOfCake:state.numOfCake+action.payload
+            }
+        }
+        case 'DecOfCake':{
+            return {
+                ...state,
+                state.numOfCake:state.numOfCake-action.payload
+            }
+        }
+        case 'restocked':{
+            return{
+                ...state,
+                state.numOfCake:state.numOfCake+action.payload
+            }
+        }
+        default:
+        return state
+    }
+}
+
+5- make Store
+const createStore=redux.createStore()
+
+const store=createStore(reducer)
+console.log('initialState', store.getState())
+
+const unsubscribe=store.subscribe(()=>console.log('updatedState',store.getState()))
+
+store.dispatch(incCake())
+store.dispatch(restockCake(4))
+unsubscribe()

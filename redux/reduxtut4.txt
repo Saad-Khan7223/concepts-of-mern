@@ -1,0 +1,88 @@
+Middle ware and Async functions 
+
+
+
+1-first require  and axios and redux
+
+const redux=require('redux')
+const middleware=redux.applyMiddleware
+const thunk=require('redux-thunk').default
+
+2-Actions
+
+const FetchRequested='FetchRequested'
+const FetchSucess='FetchSucess'
+const FetchFail='FetchFail'
+
+3-pureFunctions
+
+function fetchReq(){
+    return {
+        type:FetchRequested
+    }
+}
+
+function fetchSucess(users){
+    return {
+        type:FetchSucess,
+        action.payload:users
+    }
+}
+
+function fetchFail(err){
+    return {
+        type:FetchFail,
+        action.payload:err
+    }
+}
+
+4-reducer
+const initialState{
+    loading:false,
+    users:[],
+    err:''
+}
+
+const reducer =(state=initialState,action){
+    switch (action.type){
+        case 'FetchRequested':
+        return {
+            ...state ,
+            state.loading:true,
+        }
+
+        case 'FetchSucess':
+        return {
+            ...state ,
+            state.loading:flase,
+            state.users:action.payload
+        }
+
+        case 'FetchFail':
+        return {
+            ...state ,
+            state.loading:flase,
+            state.err:aciton.payload
+        }
+    }
+}
+
+const fetchUsers =()=>{
+    return function(dispatch){
+        dispatch(fetchReq())
+        axios.get('url')
+        .then((response)=>{
+            const users=response.data.map((user)=>user.id)
+            dispatch(fetchSucess(users))
+        })
+        .catch((err)=>dispatch(fetchFail(err)))
+    }
+}
+5-create store and middlware
+const createStore=createStore()
+const store =createStore(reducer, middleware(thunk))
+console.log('unUpdated ',store,getState())
+store.subscribe(()=>console.log('Updated ',store,getState()))
+store.dispatch(fetchUsers())
+
+in this don't unsubscribe because its AN ASYNC  function thats why if you unsubscribe the data will not fetch
