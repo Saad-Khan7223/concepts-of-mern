@@ -1,0 +1,93 @@
+first we create app folder and store.js and install @reduxjs/toolkit,react-redux,axios
+
+src/app/store.js
+
+import {configureStore} from "@reactjs/toolkit"
+import userReducer from "../features/userSlice"
+const store = configureStore({
+
+reducer:{
+    user:userReducer
+}
+})
+export default store
+
+
+2nd add store to index.js
+
+import {Provider} from "react-redux"
+import store from "./app/store"
+<Provider store={store}>
+<App/>
+</Provider>
+
+now make a slice of user in features folder
+
+src/features/userSlice.js
+
+import {creatSlice,createAsyncThunk} from "@readuxjs/toolkit"
+import axios from "axios"
+
+const initialState= {
+    loading:false,
+    users:[]
+    err:''
+}
+
+export const fetchUsers=createAsyncThunk('user/fetchUsers',()=>{
+    return axios.get('url')
+    .then((response)=>response.data)
+})
+
+const userSlice =creatSlice({
+    name:'user',
+    initialState,
+    extraReducers:(builder)=>{
+        (builder).addcase(fetchUsers.pending,(state,action)=>{
+            state.users.loading=true
+        })
+
+         (builder).addcase(fetchUsers.fulfilled,(state,action)=>{
+            state.loading=false
+            state.users=action.payload
+        })
+
+         (builder).addcase(fetchUsers.rejected,(state,action)=>{
+            state.loading=false
+            state.users=[]
+            state.err=action.err.message
+        })
+    }
+})
+export default userSlice.reducer
+now go to store.js and import reducer
+
+now create a view.js and call it in app 
+
+./src/view/UserView.js
+import {useSelector,useDispatch} from "react-redux"
+import {useEffect} from "react"
+import {fetchUsers} from "../features/userSlice"
+
+export default function UserView() {
+    const dispatch=useDispatch()
+    const user=useSelector((state)=>state.user)
+    useEffect(()=>{
+        dispatch(fetchUsers())
+    },[dispatch])
+  return (
+    <div>
+      <h1>Users Data</h1>
+      {user.loading && <div>...Loading</div>}
+      {!user.loading && user.err ? <div>{user.err}</div>:null}
+      {!user.loading && user.users.length ? (
+        <ul>
+            {user.users.map((user)=>(
+                <li key={user.id}>{user.address.city}</li>
+            ))}
+        </ul>
+      ):null}
+      </div>
+  )
+}
+

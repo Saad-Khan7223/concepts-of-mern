@@ -1,0 +1,82 @@
+first we create store.js in an app folder which is in src
+
+import {configureStore} from "@reduxjs/toolkit"
+import cakeReducer from "../features/cakeSlice"
+
+const store =configureStore({
+reducer:{
+cake:cakeReducer
+
+})
+
+export default store 
+
+now create a slice.js in a features folder which is also in src
+
+import {createSlice} from "@reduxjs/toolkit"
+
+const initialState={
+numOfCake:10
+}
+
+const cake=createSlice({
+name:'cake',
+initialState,
+reducers:{
+orderCake:(state,action)=>{
+state.numOfCake+=1
+}
+}
+})
+
+export const {orderCake}=cake.actions
+export default cake.reducer
+
+now make a CakeView file and import this to app.js
+
+import {useSelector,useDispatch} from "react-redux"
+import {orderCake} from "./features/cakeSlice"
+
+export default function CakeView(){
+const cakes=useSelector((state)=>state.cake.numOfCake)
+const dispatch=useDispatch()
+return(
+<div>{cakes}
+<button onClick={()=>dispatch(orderCake())}> Add </button>
+</div>
+)}
+
+now call it in app.js
+import CakeView from "./features/CakeView"
+export default function CakeView(){
+return(
+<div>
+<CakeView/>
+</div>
+)}
+now go to index.js
+
+
+
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+import { Provider } from 'react-redux';
+import store from './app/store';
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+  <Provider store={store}>
+  <App />
+  </Provider>
+
+  </React.StrictMode>
+);
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();

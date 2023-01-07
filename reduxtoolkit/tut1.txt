@@ -1,0 +1,76 @@
+folder Structure
+
+first make app folder in which store.js is created
+second make features folder which contains Slices(automatically manage actions creation ,name,immer,reducer)
+
+app/store.js
+features
+1-/cake/cakeSlice.js
+2-/iceCream/iceSlice.js
+
+index.js
+
+now go to slices files
+/cake/cakeSlice.js
+
+1- require createslice from redux toolkit
+
+const createSlice=require('@reduxjs/toolkit').createSlice
+set initialState
+const initialState={
+    numOfCake:10
+}
+make a slice 
+const cakelice=createSlice({
+    name:'cake',
+    initialState,
+    reducers:{ (name must be reducers)
+    ordered:(state,action){
+        state.numOfCake--
+    }
+        restocked:(state,action){
+        state.numOfCake+=action.payload
+    }
+    }
+
+})
+module.exports=cakeSlice.reducer
+module.exports.cakeActions=cakeSlice.acitons
+
+now go to store folder
+
+/app/store.js
+
+first require configureStore
+
+const configureStore=require('@reduxjs/toolkit').configureStore
+
+now require reducer
+
+const cakeReducer=require('./features/cake/cakeSlice.js').cakeSlice.reducer
+
+
+now make store
+
+const store=configureStore({
+    cake:cakeReducer
+})
+
+now export 
+module.exports=store
+
+now go to index.js
+
+require store
+const store=require(./app/store.js)
+
+
+now require actions
+const cakeActions=require('./features/cake/cakeSlice.js').cakeSlice.Actions
+
+console.log('initialState',store.getState())
+
+const unsubscribe=store.subscribe(()=>console.log('updatedState',store.getState()))
+store.dispatch(cakeActions.ordered())
+store.dispatch(cakeActions.restocked(2))
+unsubscribe()
