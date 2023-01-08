@@ -1,0 +1,5 @@
+1-https://www.patterns.dev/posts/mixin-pattern/
+
+2-https://github.com/lydiahallie/javascript-questions
+
+3-https://github.com/lydiahallie/javascript-questions

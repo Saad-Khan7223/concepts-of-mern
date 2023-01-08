@@ -1,0 +1,23 @@
+1-Solid  principles
+2-factory 
+4-singleton
+
+
+Solid Principles :
+
+S-stands for single responsibility principle for example one class should have one responsibility like calories
+o-stand for open closed principle  open for extension and closed for module  
+L- stand for liskov substituion principle should not change behaviour of parent class or function in chilld class while extending parent class
+i-interface segegration principle Parent class only contain main features  if the child class want anyother method  the anyothermethod class extend parent class and that child class is extend by our child class
+d- dependency inversion principle  The Dependency Inversion Principle states that entities must depend on abstractions
+From a functional point of view, these containers and injection concepts can be solved with a simple higher order function, or hole-in-the-middle type pattern which are built right into the language.
+
+Singleton:
+
+Singletons are classes which can be instantiated once, and can be accessed globally. This single instance can be shared throughout our application, which makes Singletons great for managing global state in an application.  
+
+MIxin
+A mixin is an object that we can use in order to add reusable functionality to another object or class, without using inheritance. We can't use mixins on their own: their sole purpose is to add functionality to objects or classes without inheritance.
+
+factory:
+With the factory pattern we can use factory functions in order to create new objects. A function is a factory function when it returns a new object without the use of the new keyword!
