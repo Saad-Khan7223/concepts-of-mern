@@ -1,0 +1,94 @@
+// joins 
+// inserting into branch
+
+INSERT INTO branch VALUES(4,'buffalo',NULL,NULL)
+
+//find all branches and name of their managers
+//INNER JOIN
+SELECT emplpoye.emp_id,employe.first_name,branch.branch_name
+FROM employe
+JOIN branch
+ON employe.emp_id=branch.mgr_id;
+
+
+//LEFT JOIN
+SELECT emplpoye.emp_id,employe.first_name,branch.branch_name
+FROM employe
+LEFT JOIN branch
+ON employe.emp_id=branch.mgr_id;
+
+// RIGHT JOIN
+SELECT emplpoye.emp_id,employe.first_name,branch.branch_name
+FROM employe
+RIGHT JOIN branch
+ON employe.emp_id=branch.mgr_id;
+
+//FULL OUTER JOIN 
+SELECT emplpoye.emp_id,employe.first_name,branch.branch_name
+FROM employe
+LEFT JOIN branch
+ON employe.emp_id=branch.mgr_id
+UNION
+SELECT emplpoye.emp_id,employe.first_name,branch.branch_name
+FROM employe
+RIGHT JOIN branch
+ON employe.emp_id=branch.mgr_id;
+
+
+//NESTED QUERIES
+
+
+//FIND NAMES OF ALL EMPLOYEES WHO HAVE SOLD OVER 30,000 TO A SINGLE client
+SELECT employe.first_name, employe.last_name
+FROM employe
+WHERE employe.emp_id IN(
+SELECT works_with.employe_id 
+FROM works_with
+WHERE works_with.total_sales>30000
+);
+
+//FIND ALL CLIENTS WHO ARE HANDLED BY THE BRANCH THAT MICHEL SCOTT MANAGES ASSUME YOU KNOW MICHEALS ID
+
+SELECT client.client_name
+FROM client
+WHERE client.branch_id=(
+    SELECT branch.branch_id
+    FROM branch
+    WHERE branch.mgr_id=102
+    LIMIT 1
+);
+
+
+// DELETING ENTRIES
+
+// ON DELETE SET NULL MAKES FORIGEN KEY NULL
+// ON DELETE CASCADE MAKES FORIGEN KEY ROW DELETE
+
+DELETE FROM employe
+WHERE emp_id=102;
+
+// TRIGGERS
+
+DELIMITER $$
+
+CREATE TRIGGER my_trigger BEFORE INERSERT 
+ON employe
+FROM EACH ROW BEGIN
+INSERT INTO trigger_test VALUES("add new employe");
+END$$
+
+DELIMITER;
+
+// WE CAN CREATE TRIGGERS BEFORE AFTER OR UPDATE DELETE OF A QUERY 
+
+
+// INTRO TO ER 
+//ENTITY - AN OBJECT WE WANT TO MODEL & STORE INFORMATION ABOUT
+//ATTRIBUTES - SPECIFIC PIECES OF INFORMATION ABOUT AN ENTITY
+//PRIMARY KEY- AN ATTRIBUTE THAT UNIQUELY IDENTIFY 
+COMPOSITE ATTRIBUTE- AN ATTRIBUTE THAT CAN BE BROKEN UP TO SUB-ATTRIBUTS LIKE FNAME AND LNAME 
+// MULTIVALUED ATTRIBUTE- AN ATTRIBUTE THAT CAN HAVE MORE THAN ONE VALUE
+//DERIVED ATTRIBUTE-AN ATTRIBUTE THAT CAN BE DERIVED FROM THE OTHER ATTRIBUTES
+//MULTIPLE ENTITES
+//PARTIAL PARTICIPATION
+//TOTAL PARTICIPATION

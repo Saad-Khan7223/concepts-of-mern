@@ -1,0 +1,143 @@
+// find all employes from employes Table.
+
+SELECT * 
+FROM employes; // similar for client table 
+
+// find employee order by salary
+
+SELECT * 
+FROM employes
+ORDER BY salary DESC;
+
+// find employes order by sex and then name
+
+SELECT * 
+FROM employes
+ORDER BY SEX AND name;
+
+// first five employes 
+
+SELECT * 
+FROM employes
+LIMIT 5;
+
+// FIND FIRST AND LAST NAME 
+
+SELECT first_name,last_name
+FROM employes;
+
+// FIND  FORENAME AND SURNAMES OF ALL employes
+
+SELECT first_name AS forename , last_name AS surname
+FROM employes
+
+
+// FIND OUT DIFFERENT GENDER
+
+SELECT DISTINCT SEX
+FROM employes // DIFFERENCE GENDER TAKES
+
+
+// FIND OUT DIFFERENT BRANCH_ID
+
+SELECT DISTINCT branch_id
+FROM employes // DIFFERENCE branch_id TAKES
+
+
+
+// FUNCTIONS 
+
+
+//FIND NUMBER OF employes
+
+SELECT COUNT(emp_id)
+FROM employes;// COUNT TOTAL NUMBER OF employes
+
+
+// FIND THE NUMBER OF FEMALE employes BORN AFTER 1970
+SELECT COUNT(emp_id)
+FROM employes
+WHERE sex=f AND date_of_birth>'1970-01-01';
+
+
+// FIND AVERAGE SALARY 
+
+SELECT AVG(salary)
+FROM employes;
+
+SELECT AVG(salary)
+FROM employes
+WHERE sex='M';
+
+//FIND SUM OF SALARY
+
+SELECT SUM(salry)
+FROM employes;
+
+// AGGREGATION
+
+// FIND NUMBER OF  FEMALE AND MALE IN employes
+
+SELECT COUNT(sex), sex
+FROM employes
+GROUP BY sex;
+
+
+// WILD CARD LIKE KEY WORD %=any character  _=one character
+
+//find any client who are an LLC
+
+SELECT * 
+FROM client
+WHERE client_name LIKE '%llc';
+
+
+//FIND  ANY BRANCH SUPPLIER WHO ARE IN LABEL BUSINESS
+
+SELECT *
+FROM branch_supplier
+WHERE supplier_name LIKE '%label%
+
+// FIND employes BORN IN OCTOBER
+
+SELECT *
+FROM employes
+WHERE date_of_
+birth LIKE '____-10%';
+
+// UNION 
+
+//FIND THE LIST OF employes AND branch_name
+
+SELECT first_name
+FROM employes
+UNION
+SELECT branch_name 
+FROM branch; // MUST HAVE SAME NO OF COLOUMNS AND SAME DARA TYPE
+
+//FIND A LIST OF ALL clientS AND branch_supplier NAME
+SELECT name 
+FROM client
+UNION
+SELECT supplier_name
+FROM branch_supplier;
+
+SELECT name , client.branch_id
+FROM client
+UNION
+SELECT supplier_name supplier.branch_id 
+FROM branch_supplier;
+
+// FIND LIST OF  ALL MONEY SPENT OR EARN BY COMPANY
+SELECT salary AS total
+FROM employes
+UNION
+SELECT total_sales
+FROM works_with;
+
+
+
+
+
+
+

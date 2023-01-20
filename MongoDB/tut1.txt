@@ -1,0 +1,95 @@
+//commands for mongo shell
+
+show dbs// show list of data bases
+
+use xyz// switch to xyz database
+
+show collections// show tables or collections in db
+
+dp.dropDatabse() //delete databse in which your'e
+
+// if db is not and we use use xyz  then it will automatic create xyz database
+
+db // gives you current data base
+
+db.users.insertOne({name:"mike"})// make one object to add in data
+
+db.users.find() // show all data in collection
+
+// no schema no columns 
+// in collection there is document
+
+db.users.insertOne({name:"jane", age:19,address:{street:"987 north"},hobbies:["swim","blah","blah"]})
+
+
+db.users.insertMany([{},{},{}])// for more than one entry
+
+db.users.find().limit(2) // show the limited documents
+
+db.users.find().sort({name:1}) // sort require an object  key by which we sorting and if we set it 1 it means ascending if we set -1 it means descending
+
+
+db.users.find().sort({age:-1,name:1})// if age is common then it set by name 
+
+db.users.find().skip(1).limit(2)// skip 1 document 
+
+db.users.find({name:"kayle"})// gives that object in which name is kayle
+
+db.users.find({age:26})//gives that object in which age is 26
+
+db.users.find({age:"26"})// gives nothing because age we insert as an number
+
+db.users.find({name:"kayle"},{name:1,age:1,_id:0})// show only name and age
+
+db.users.find({name:{$eq:sally}})//gives name where name is eq=equalto sally (complex query)
+
+db.users.find({name:{$ne:sally}})// ne means not equalto
+
+db.users.find({age:{$gte:13}})// gte=">="
+db.users.find({age:{$lte:19}})// lte="l<=" 
+
+// in above two lines 48,49 if we only put gt and lt its means greater than less than
+
+db.users.find({name:{$in:["kayle","mike","blah"]}})// means if the name is in the list of arry present it will return that object
+
+db.users.find({name:{$nin:["kayle","mike","blah"]}}) means not in
+
+db.users.find({age:{$exists:true}})// only return those objects which have age if age is age:null it also gives this value also
+
+
+db.users.find({age:{$gt:20, $lt:40}}) //gives age between 20-40 its by default using and operation
+
+db.users.find({$and:[{age:26},{name:"kayle"}]})// another way to perform and operation
+
+db.users.find({$or:[{age:26},{name:"kayle"}]})// perform or operation
+
+db.users.find({age:{$not:{$lt:20}}})// perform not
+
+
+db.users.find({$expr:{$gt:["$debt","$balance"]}}) //comparing expr means expression debt value is greater then balance
+
+db.users.findOne() // gives only one object
+
+db.users.countDocument()// gives count of documents or object
+
+db.users.updateOne({age:26},{$set:{age:27}})
+
+db.users.updateOne({_id:obejct id},{$set:{age:27}})
+
+db.users.updateOne({_id:object id},{$inc:{age:3}})// increment age by 3
+
+db.users.updateOne({_id:object id},{$rename:{name:"firstname"}})// change name key to firstname as a key
+
+db.users.updateOne({_id:object id},{$unset:{age:""}})// remove age 
+
+db.users.updateOne({_id:object id},{$push:{hobbies:"swiming"}})// push swiming in object
+
+db.users.updateOne({_id:object id},{$pull:{hobbies:"swiming"}})// removing swiming from object
+
+db.users.updateMany({address:{$exists:true}},{$unset:{address:""}})// remove addresses
+
+db.users.replaceOne({age:30},{name:"john"}) change entire object key and value which age is 30
+
+db.users.deleteOne({name:"john"})// delete object where user is john
+
+db.users.deleteMany({age:{$exists:false}})// delete all object which doesnt have age

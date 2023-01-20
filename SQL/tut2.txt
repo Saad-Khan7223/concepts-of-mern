@@ -1,0 +1,35 @@
+// inserting data in student table
+
+INSERT INTO student VALUES(1,'jack','biology') ;// student_id=1 name=jack major=biology
+
+INSERT INTO student(student_id,name) VALUES(1,'jack');// way to fill only specific coloumn 
+
+// INSERT INTO if we define same PRIMARY KEY  the record will not enter as duplicate PRIMARY Key error
+
+SELECT * FROM student ;// show all coloumns and values in table of student
+
+
+Updating entries
+
+UPDATE student
+SET major='bio',
+WHERE major='biology'; from line 14 to 16 is one query
+
+UPDATE student
+SET major='bio',
+WHERE student_id=4; // now only change the major which have student_id =4
+
+
+UPDATE student
+SET major='biochemistry',
+WHERE major='biology' OR major='chemistry'; major make boiochemistry for those whose major is bio or chemistry
+
+Deleting row
+
+DELETE FROM student;// delete all rows in student
+
+DELETE FROM student
+WHERE student_id=5;// delete only that row
+
+DELETE FROM student
+WHERE name='Tom' AND major='undecided' ;

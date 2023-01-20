@@ -1,0 +1,58 @@
+Data types in SQL
+
+INT
+Decimal (M,N) // N denotes points and M  denotes  total number with points
+Date  YY-MM-DD
+VARCHAR () takes define number of characters
+BLOB  // binary large object store large Data
+TIMSTAMP  YY-MM-DD H-M-S
+
+MYSQL POPSQL
+
+for conventional used Capital Letters for reserved sql words
+
+making table
+
+CREATE TABLE student(
+    student_id INT,
+    name VARCHAR(50),
+    major VARCHAR(50),
+    PRIMARY KEY(student_id)
+
+
+);
+
+with constraints
+CREATE TABLE student(
+    student_id INT,
+    name VARCHAR(50) NOT NULL, // gives error if name is null
+    major VARCHAR(50) UNIQUE,// don't allow duplicate entry in column
+    PRIMARY KEY(student_id)
+
+
+);
+
+CREATE TABLE student(
+    student_id INT,
+    name VARCHAR(50),
+    major VARCHAR(50),DEFAULT 'undecided', // if nothing gives to major it take its default value
+    PRIMARY KEY(student_id)
+
+
+);
+
+CREATE TABLE student(
+    student_id INT AUTO_INCREMENT,
+    name VARCHAR(50),
+    major VARCHAR(50), // if nothing gives to major it take its default value
+    PRIMARY KEY(student_id)
+
+
+);
+
+DESCRIBE student; // describing table 
+
+DROP TABLE student; // delete table from database
+
+ALTER TABLE student ADD gpa DECIMAL(3,2) ;// add column in table gpa 
+

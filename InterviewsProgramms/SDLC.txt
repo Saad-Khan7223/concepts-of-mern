@@ -1,0 +1,45 @@
+SDLC define how to software needs to be developed 
+process in SDLC
+1- planning phase what software should be developed
+2-Requirement and analysis phase
+3- Designing phase  pseudo code
+4- implementation or coding phase
+5-testing
+6-deployment 
+7-maintainance
+
+in old days we structured this in a waterfall model  so it takes lots of time monolithic application
+
+
+Agile is in chain of the above 7 stages
+
+divided in micro tasks, respond changes rather than following a plan
+
+Principles of Agile ,
+
+Welcome changes,
+satisfy the customer
+delivering working software frequently
+mantain constant pace
+face to face communication
+frequent interaction with stake holders
+
+How to implement agile
+
+Scrum
+iterate plan build test review
+
+Product owner (manager) 
+scrum master (Team Leader)
+Team mates 
+how to implement agile 
+Product backlog (break task in iterations) product owner and scrum master work priotize and 
+make sprint backlog and now developer team  working
+sprint planning how the product look like sprint last 2weeks
+daily scrum (meeting and discussing about issues)
+sprint review did you done that or not
+sprint review
+
+extreme programming use best practices
+kanban whatever task will be achieved replace by a new item in a que continous implementation of software development
+

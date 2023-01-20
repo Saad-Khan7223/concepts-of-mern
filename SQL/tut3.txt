@@ -1,0 +1,16 @@
+Basic Queries
+
+SELECT name ,major FROM student ;//only show name and major in student table
+
+SELECT name ,major FROM student ORDERED BY name; //make names in alphabatical order default asending  but we can change it in by using DESC in end of query
+
+
+SELECT name ,major FROM student ORDERED BY student_id DESC LIMIT 2;// give last two entry only
+
+we can use WHERE with SELECT
+SELECT name, major FROM student WHERE major='biology'; // >=,<=,<> not equal,OR,AND,=
+
+with IN
+SELECT *
+FROM student
+WHERE name IN('kate','clarie','mike'); // from 14 to 16 is one query
